@@ -36,9 +36,9 @@ class ActiveHandlers {
         switch (command[0]){
             case ("#PM"):{
                 if(command.length > 1 ) {
-                    this.sendMessagePrivate(command[1], createMessage(command));
+                    this.sendMessagePrivate(sender, command[1], createMessage(command));
                 } else {
-                    this.sendMessagePrivate(sender.clientID, "Chybi ID prijemce");
+                    sender.messages.offer("Chybi ID prijemce");
                 }
                 break;
             }
@@ -46,7 +46,7 @@ class ActiveHandlers {
                 if(command.length > 1 ) {
                     this.changeID(sender, command[1]);
                 } else {
-                    this.sendMessagePrivate(sender.clientID, "Chybi nove ID");
+                    sender.messages.offer("Chybi nove ID");
                 }
                 break;
             }
@@ -71,6 +71,7 @@ class ActiveHandlers {
                 if (handler.clientID==sender.clientID) {
                     this.sendMessageToAll(sender,"Uzivatel " + handler.clientID + " si zmenil ID na " + newID + "\n");
                     handler.clientID=newID;
+                    //sender.clientID=newID;
                 }
             }
     }
@@ -79,15 +80,17 @@ class ActiveHandlers {
      * @param receiverID - todo
      * @param message - řetězec se zprávou
      */
-    synchronized void sendMessagePrivate( String receiverID, String message) {
+    synchronized void sendMessagePrivate(SocketHandler sender, String receiverID, String message) {
+        boolean found = false;
         for (SocketHandler handler:activeHandlersSet)	// pro všechny aktivní handlery
-            if (handler.clientID.contains(receiverID)) {
-                if (!handler.messages.offer(message))   // zkus přidat zprávu do fronty jeho zpráv
-                    System.err.printf("Client %s message queue is full, dropping the message!\n", handler.clientID);
+            if (handler.clientID.equals(receiverID)) {
+                found = true;
+                if (!handler.messages.offer(sender.clientID+" : "+message))   // zkus přidat zprávu do fronty jeho zpráv
+                    sender.messages.offer("Client " + handler.clientID + " message queue is full, dropping the message!\n");
             }
-            else {
-                System.err.printf("Client %s doesn't exist, dropping the message!\n", receiverID); // TODO Private
-            }
+        if (!found){
+            sender.messages.offer("Client " + receiverID + " doesn't exist, dropping the message!\n");
+        }
     }
     /** sendMessageToAll - Pošle zprávu všem aktivním klientům kromě sebe sama
      * @param sender - reference odesílatele
@@ -97,7 +100,7 @@ class ActiveHandlers {
         for (SocketHandler handler:activeHandlersSet)	// pro všechny aktivní handlery
             if (handler!=sender) {
                 if (!handler.messages.offer(message))   // zkus přidat zprávu do fronty jeho zpráv
-                    System.err.printf("Client %s message queue is full, dropping the message!\n", handler.clientID);
+                    sender.messages.offer("Client " + handler.clientID + " message queue is full, dropping the message!\n");
             }
     }
     /** add přidá do množiny aktivních handlerů nový handler.
