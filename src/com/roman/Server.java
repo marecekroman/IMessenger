@@ -7,8 +7,7 @@ import java.util.*;
 
 class ActiveHandlers {
     private static final long serialVersionUID = 1L;
-    private HashSet<SocketHandler> activeHandlersSet=new HashSet<SocketHandler>();
-
+    private ConcurrentHashMap<String, SocketHandler> activeHandlersSet=new ConcurrentHashMap<String, SocketHandler>();
 
     /** createMessage - Joins array into client's message
      * @param rawMessage - message array
@@ -59,13 +58,6 @@ class ActiveHandlers {
                 }
                 break;
             }
-
-            case ("#CR"):
-                //Creates room
-                //TODO make implementation
-                System.out.println("Create room");
-                break;
-
             case ("#JR"):
                 //Joins created room
                 //TODO make implementation
@@ -142,7 +134,10 @@ class ActiveHandlers {
      * @return true if the set did not already contain the specified element.
      */
     synchronized boolean add(SocketHandler handler) {
-        return activeHandlersSet.add(handler);
+        if (activeHandlersSet.put(handler.clientID,handler) != null) {
+            return false;
+        }
+        return true;
     }
 
 
@@ -288,8 +283,9 @@ class SocketHandler {
 public class Server {
 
     public static class Rooms{
-//todo dummy collection (usersID, Name of room)
-       public String[] roomsName;
+
+        private ConcurrentHashMap<String, SocketHandler> activeRooms=new ConcurrentHashMap<String, SocketHandler>();
+
     }
 
     public static void main(String[] args) {
