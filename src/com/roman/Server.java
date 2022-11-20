@@ -9,6 +9,7 @@ class ActiveHandlers {
     private static final long serialVersionUID = 1L;
     private ConcurrentHashMap<String, SocketHandler> activeHandlersSet=new ConcurrentHashMap<String, SocketHandler>();
 
+
     /** createMessage - Joins array into client's message
      * @param rawMessage - message array
      */
