@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="26cb71a7-5f23-4c7e-8d24-eee11d00d44b" name="Changes" comment="Private message finish-FIXED output. TODO refactor">
+      <change beforePath="$PROJECT_DIR$/src/com/roman/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/roman/Server.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2HJnadkixIO3McZaqlKLoLCsq4h" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Roman Marecek/iCloudDrive/Desktop/School/SWI/3Rocnik/1Semestr/AK5VS/Ukoly/Instant Message server/Server"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="IMessenger" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.roman.Server" />
+      <module name="IMessenger" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="26cb71a7-5f23-4c7e-8d24-eee11d00d44b" name="Changes" comment="" />
+      <created>1668012118801</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1668012118801</updated>
+      <workItem from="1668012120068" duration="10766000" />
+      <workItem from="1668108174829" duration="10766000" />
+    </task>
+    <task id="LOCAL-00001" summary="Private message finish. TODO refactor">
+      <created>1668112850311</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1668112850311</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Private message finish-FIXED output. TODO refactor">
+      <created>1668118488974</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1668118488974</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Private message finish. TODO refactor" />
+    <MESSAGE value="Private message finish-FIXED output. TODO refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="Private message finish-FIXED output. TODO refactor" />
+  </component>
+</project>
