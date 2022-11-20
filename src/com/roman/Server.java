@@ -75,7 +75,13 @@ class ActiveHandlers {
      */
     synchronized void changeID(SocketHandler sender, String newID) {
 
-        for (SocketHandler handler:activeHandlersSet)
+        activeHandlersSet.forEach((s, socketHandler) -> {
+            if (socketHandler.clientID==sender.clientID) {
+                this.sendMessageToAll(sender,"User " + socketHandler.clientID + " changed ID to: " + newID + "\n");
+                socketHandler.clientID=newID;
+            }
+        });
+    /*    for (SocketHandler handler:activeHandlersSet)
 
             if (handler==sender) {
 
@@ -83,7 +89,7 @@ class ActiveHandlers {
                     this.sendMessageToAll(sender,"User " + handler.clientID + " changed ID to: " + newID + "\n");
                     handler.clientID=newID;
                 }
-            }
+            }*/
     }
 
 
@@ -94,9 +100,23 @@ class ActiveHandlers {
      */
     synchronized void sendMessagePrivate(SocketHandler sender, String receiverID, String message) {
 
-        boolean found = false;
 
-        for (SocketHandler handler:activeHandlersSet)
+        activeHandlersSet.forEach((s, socketHandler) -> {
+            boolean found = false;
+            if (socketHandler.clientID.equals(receiverID)) {
+
+                found = true;
+
+                if (!socketHandler.messages.offer(sender.clientID+" : "+message))
+                    sender.messages.offer("Client " + socketHandler.clientID + " message queue is full, dropping the message!\n");
+            }
+
+            if (!found){
+                sender.messages.offer("Client " + receiverID + " doesn't exist, dropping the message!\n");
+            }
+        });
+
+      /*  for (SocketHandler handler:activeHandlersSet)
 
             if (handler.clientID.equals(receiverID)) {
 
@@ -108,7 +128,7 @@ class ActiveHandlers {
 
         if (!found){
             sender.messages.offer("Client " + receiverID + " doesn't exist, dropping the message!\n");
-        }
+        }*/
     }
 
 
@@ -118,13 +138,12 @@ class ActiveHandlers {
      */
     synchronized void sendMessageToAll(SocketHandler sender, String message) {
 
-        for (SocketHandler handler:activeHandlersSet)	// for all active handlers
-
-            if (handler!=sender) {
-
-                if (!handler.messages.offer(message))   // try to add message to receiver's queue
-                    sender.messages.offer("Client " + handler.clientID + " message queue is full, dropping the message!\n");
+        activeHandlersSet.forEach((s, socketHandler) -> {
+            if (socketHandler!=sender) {
+                if (!socketHandler.messages.offer(message)) // try to add message to receiver's queue
+                    sender.messages.offer("Client " + socketHandler.clientID + " message queue is full, dropping the message!\n");
             }
+        });
     }
 
 
@@ -147,7 +166,7 @@ class ActiveHandlers {
      * @return true if the set did not already contain the specified element.
      */
     synchronized boolean remove(SocketHandler handler) {
-        return activeHandlersSet.remove(handler);
+            return activeHandlersSet.remove(handler.clientID,handler);
     }
 }
 
